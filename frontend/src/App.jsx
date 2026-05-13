@@ -2,7 +2,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import DashboardPage from "./pages/DashboardPage";
+
+import DashboardLayout from "./layouts/DashboardLayout";
+
+import DashboardHome from "./pages/DashboardHome";
+import NotesPage from "./pages/NotesPage";
+import TasksPage from "./pages/TasksPage";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -20,10 +25,16 @@ function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <DashboardPage />
+            <DashboardLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<DashboardHome />} />
+
+        <Route path="notes" element={<NotesPage />} />
+
+        <Route path="tasks" element={<TasksPage />} />
+      </Route>
     </Routes>
   );
 }
