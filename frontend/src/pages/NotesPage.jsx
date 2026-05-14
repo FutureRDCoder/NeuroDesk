@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import {
   getNotes,
@@ -104,8 +106,20 @@ function NotesPage() {
           placeholder="Write your note..."
           value={formData.content}
           onChange={handleChange}
-          className="w-full border p-3 rounded-lg mb-4 h-32"
+          className="w-full border p-3 rounded-lg mb-4 h-40 font-mono"
         />
+
+        <div className="bg-gray-100 rounded-xl p-4 mb-4">
+          <h3 className="font-bold mb-3">
+            Live Preview
+          </h3>
+          
+          <div className="prose max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {formData.content || "Nothing to preview"}
+            </ReactMarkdown>
+          </div>
+        </div>
 
         <button
           type="submit"
@@ -134,9 +148,11 @@ function NotesPage() {
                 {note.title}
               </h2>
 
-              <p className="text-gray-700 mb-6">
-                {note.content}
-              </p>
+              <div className="prose max-w-none mb-6">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {note.content}
+                </ReactMarkdown>
+              </div>
 
               <button
                 onClick={() => handleDelete(note._id)}

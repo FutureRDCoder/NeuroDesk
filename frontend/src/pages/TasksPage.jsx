@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import KanbanBoard from "../components/KanbanBoard";
 
 import {
   getTasks,
@@ -147,70 +148,36 @@ function TasksPage() {
       </form>
 
 
-      {/* Tasks */}
-      {loading ? (
+        {/* Kanban Board */}
+        {loading ? (
         <p>Loading...</p>
-      ) : tasks.length === 0 ? (
+        ) : tasks.length === 0 ? (
         <div className="bg-white p-6 rounded-2xl shadow">
-          No tasks yet.
+            No tasks yet.
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {tasks.map((task) => (
-            <div
-              key={task._id}
-              className="bg-white p-6 rounded-2xl shadow"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold">
-                  {task.title}
-                </h2>
+        ) : (
+        <KanbanBoard
+            tasks={tasks}
+            onStatusChange={async (taskId, newStatus) => {
+            try {
+                const task = tasks.find(
+                (t) => t._id === taskId
+                );
 
-                <span className="text-sm bg-gray-200 px-3 py-1 rounded-full">
-                  {task.priority}
-                </span>
-              </div>
+                await updateTask(taskId, {
+                ...task,
+                status: newStatus,
+                });
 
-              <p className="text-gray-700 mb-6">
-                {task.description}
-              </p>
-
-
-              {/* Status */}
-              <div className="mb-6">
-                <select
-                  value={task.status}
-                  onChange={(e) =>
-                    handleStatusChange(task, e.target.value)
-                  }
-                  className="border p-2 rounded-lg"
-                >
-                  <option value="todo">Todo</option>
-
-                  <option value="in-progress">
-                    In Progress
-                  </option>
-
-                  <option value="completed">
-                    Completed
-                  </option>
-                </select>
-              </div>
-
-
-              {/* Actions */}
-              <button
-                onClick={() => handleDelete(task._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg"
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+                fetchTasks();
+            } catch (error) {
+                console.error(error);
+            }
+            }}
+        />
+        )}
     </div>
-  );
+    );
 }
 
 export default TasksPage;
