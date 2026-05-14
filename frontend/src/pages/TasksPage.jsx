@@ -8,6 +8,8 @@ import {
   deleteTask,
 } from "../api/tasksApi";
 
+import socket from "../socket";
+
 
 function TasksPage() {
   const [tasks, setTasks] = useState([]);
@@ -36,7 +38,27 @@ function TasksPage() {
 
 
   useEffect(() => {
-    fetchTasks();
+    useEffect(() => {
+      socket.on("taskCreated", () => {
+        fetchTasks();
+      });
+
+      socket.on("taskUpdated", () => {
+        fetchTasks();
+      });
+
+      socket.on("taskDeleted", () => {
+        fetchTasks();
+      });
+
+      return () => {
+        socket.off("taskCreated");
+
+        socket.off("taskUpdated");
+
+        socket.off("taskDeleted");
+      };
+    }, []);
   }, []);
 
 

@@ -22,6 +22,9 @@ exports.createTask = async (req, res) => {
   }
 };
 
+const io = req.app.get("io");
+io.emit("taskCreated", task);
+
 
 // GET ALL TASKS
 exports.getTasks = async (req, res) => {
@@ -106,6 +109,9 @@ exports.updateTask = async (req, res) => {
   }
 };
 
+const io = req.app.get("io");
+io.emit("taskUpdated", updatedTask);
+
 
 // DELETE TASK
 exports.deleteTask = async (req, res) => {
@@ -133,3 +139,6 @@ exports.deleteTask = async (req, res) => {
     });
   }
 };
+
+const io = req.app.get("io");
+io.emit("taskDeleted", deletedTaskId);
