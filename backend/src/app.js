@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
+const aiRoutes = require("./modules/ai/ai.routes");
 const authRoutes = require('./modules/auth/authRoutes');
 const notesRoutes = require("./modules/notes/notesRoutes");
 const tasksRoutes = require("./modules/tasks/taskRoutes");
@@ -21,6 +22,9 @@ app.use('/api/notes', notesRoutes);
 
 // Route for tasks
 app.use("/api/tasks", tasksRoutes);
+
+// Route for AI features
+app.use("/api/ai", aiRoutes);
 
 // Route for Health-Check
 app.get('/', (req, res) => {

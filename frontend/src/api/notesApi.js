@@ -14,6 +14,14 @@ export const createNote = async (noteData) => {
   return response.data;
 };
 
+export const updateNote = async (id, updatedData) => {
+  const response = await api.put(
+    `/notes/${id}`,
+    updatedData
+  );
+
+  return response.data;
+};
 
 export const deleteNote = async (id) => {
   const response = await api.delete(`/notes/${id}`);
