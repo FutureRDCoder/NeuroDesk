@@ -2,6 +2,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import useAuthStore from "../store/authStore";
 
+import AIChat from "../components/AIChat";
+
 
 function DashboardLayout() {
   const logout = useAuthStore((state) => state.logout);
@@ -61,6 +63,9 @@ function DashboardLayout() {
       <main className="flex-1 p-10">
         <Outlet />
       </main>
+
+      {/* AI Chat */}
+      <AIChat />
     </div>
   );
 }

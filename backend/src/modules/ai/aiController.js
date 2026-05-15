@@ -2,6 +2,7 @@ const {
   summarizeNote,
   generateTasksFromNote,
   rewriteContent,
+  chatWithAssistant,
 } = require("./aiService");
 
 
@@ -64,9 +65,31 @@ const rewrite = async (req, res) => {
   }
 };
 
+const chat = async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    const response =
+    await chatWithAssistant(
+      req.user.id,
+      message
+    );
+
+    res.status(200).json({
+      success: true,
+      response,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 
 module.exports = {
   summarize,
   generateTasks,
   rewrite,
+  chat,
 };
