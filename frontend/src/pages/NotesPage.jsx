@@ -112,49 +112,51 @@ function NotesPage() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-8">
-        {selectedNote && (
-          <div className="bg-white p-6 rounded-2xl shadow mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">
-                Editing Note
-              </h2>
-              <span className="text-sm text-gray-500">
-                {saveStatus}
-              </span>
-            </div>
+        Notes
+      </h1>
 
-            <input
-              type="text"
-              value={selectedNote.title}
-              onChange={(e) => {
-                const updated = {
-                  ...selectedNote,
-                  title: e.target.value,
-                };
+      {selectedNote && (
+        <div className="bg-white p-6 rounded-2xl shadow mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold">
+              Editing Note
+            </h2>
+            <span className="text-sm text-gray-500">
+              {saveStatus}
+            </span>
+          </div>
+          
+          <input 
+          type="text"
+          value={selectedNote.title}
+          onChange={(e) => {
+            const updated = {
+              ...selectedNote,
+              title: e.target.value,
+            };
                 
-                setSelectedNote(updated);
-                autoSave(updated);
-              }}
-              className="w-full border p-3 rounded-lg mb-4"
-            />
+            setSelectedNote(updated);
+            autoSave(updated);
+          }}
+          className="w-full border p-3 rounded-lg mb-4"
+          />
 
-            <textarea
-              value={selectedNote.content}
-              onChange={(e) => {
-                const updated = {
-                  ...selectedNote,
-                  content: e.target.value,
-                };
+          <textarea
+            value={selectedNote.content}
+            onChange={(e) => {
+              const updated = {
+                ...selectedNote,
+                content: e.target.value,
+              };
 
               setSelectedNote(updated);
 
               autoSave(updated);
-              }}
-              className="w-full border p-3 rounded-lg h-64 font-mono"
-            />
-          </div>
-        )}
-      </h1>
+            }}
+            className="w-full border p-3 rounded-lg h-64 font-mono"
+          />
+        </div>
+      )}
 
 
       {/* Create Note */}

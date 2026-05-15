@@ -38,27 +38,17 @@ function TasksPage() {
 
 
   useEffect(() => {
-    useEffect(() => {
-      socket.on("taskCreated", () => {
-        fetchTasks();
-      });
+    fetchTasks();
+    
+    socket.on("taskCreated", fetchTasks);
+    socket.on("taskUpdated", fetchTasks);
+    socket.on("taskDeleted", fetchTasks);
 
-      socket.on("taskUpdated", () => {
-        fetchTasks();
-      });
-
-      socket.on("taskDeleted", () => {
-        fetchTasks();
-      });
-
-      return () => {
-        socket.off("taskCreated");
-
-        socket.off("taskUpdated");
-
-        socket.off("taskDeleted");
-      };
-    }, []);
+    return () => {
+      socket.off("taskCreated", fetchTasks);
+      socket.off("taskUpdated", fetchTasks);
+      socket.off("taskDeleted", fetchTasks);
+    };
   }, []);
 
 

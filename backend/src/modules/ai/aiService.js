@@ -2,6 +2,9 @@ const OpenAI = require("openai");
 
 const AIMemory = require("./aiMemoryModel");
 
+const Task = require("../tasks/taskModel");
+const Note = require("../notes/notesModel");
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -82,10 +85,6 @@ const rewriteContent = async (content) => {
 
   return response.choices[0].message.content;
 };
-
-const Task = require("../tasks/task.model");
-
-const Note = require("../notes/note.model");
 
 
 const chatWithAssistant = async (
