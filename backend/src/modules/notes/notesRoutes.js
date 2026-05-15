@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const protect = require("../../middleware/auth.middleware");
+const protect = require("../../middleware/authMiddleware");
 
 const {
   createNote,
@@ -10,7 +10,7 @@ const {
   getNoteById,
   updateNote,
   deleteNote,
-} = require("./notes.controller");
+} = require("./notesController");
 
 
 // Protected Routes

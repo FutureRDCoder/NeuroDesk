@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const aiRoutes = require("./modules/ai/ai.routes");
+const aiRoutes = require("./modules/ai/aiRoutes");
 const authRoutes = require('./modules/auth/authRoutes');
 const notesRoutes = require("./modules/notes/notesRoutes");
 const tasksRoutes = require("./modules/tasks/taskRoutes");

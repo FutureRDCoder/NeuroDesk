@@ -1,6 +1,6 @@
 const OpenAI = require("openai");
 
-const AIMemory = require("./aiMemory.model");
+const AIMemory = require("./aiMemoryModel");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

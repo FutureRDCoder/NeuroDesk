@@ -1,4 +1,4 @@
-const Note = require("./notes.model");
+const Note = require("./notesModel");
 
 
 // CREATE NOTE
